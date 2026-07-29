@@ -375,16 +375,47 @@ def lot_use_counts():
     )
 
 
+def defect_category():
+    return fetch_dataframe(
+        """
+        SELECT
+            *
+        FROM defect_category
+        ORDER BY category_id 
+        ;
+        """
+    )
+
+def defect_item():
+    return fetch_dataframe(
+        """
+        SELECT
+            di.defect_id,
+            i.item_id,
+            i.item_name,
+            c.category_id,
+            c.defect_detail
+        FROM defect_item AS di
+        JOIN item AS i 
+            ON di.item_id = i.item_id
+        JOIN defect_category AS c
+            ON di.category_id = c.category_id
+        ORDER BY di.defect_id;
+        """
+    )
+
+
+
 def next_id(table_name: str, id_column: str) -> int:
     row = fetch_one(f"SELECT COALESCE(MAX({id_column}), 0) + 1 AS next_id FROM {table_name}")
     return int(row["next_id"])
 
-
+# lot 테이블에 lot_no 스키마 데이터 유/무 확인 함수
 def lot_no_exists(lot_no: str) -> bool:
     row = fetch_one("SELECT lot_id FROM lot WHERE lot_no = ?", (lot_no,))
     return row is not None
 
-
+# production 테이블에 production_no 스키마 데이터 유/무 확인 함수 
 def production_no_exists(production_no: str) -> bool:
     row = fetch_one("SELECT production_id FROM production WHERE production_no = ?", (production_no,))
     return row is not None

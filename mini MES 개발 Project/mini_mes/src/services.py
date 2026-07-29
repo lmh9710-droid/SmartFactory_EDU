@@ -146,3 +146,54 @@ def register_production(data: ProductionRegistration) -> dict:
             }
     except sqlite3.IntegrityError as exc:
         raise ValueError("데이터베이스 제약조건을 만족하지 못해 저장하지 못했습니다.") from exc
+
+
+@dataclass
+class defectCategoryRegistration:
+    category_id: int
+    defect_detail: str
+
+@dataclass
+class defectItemRegistration:
+    defect_id: int
+    item_id: int
+    category_id: int 
+
+def validate_defectCategory(data: defectCategoryRegistration) -> list[str]:
+    errors: list[str] = []
+
+    if not data.defect_detail.strip():
+        errors.append("불량 상세내용 입력하세요.")
+
+    return errors
+
+def validate_defectItem(data: defectItemRegistration) -> list[str]:
+    errors: list[str] = []
+
+    if not data.defect_id.strip():
+        errors.append("불량ID 입력하세요.")
+    if not data.item_id.strip():
+        errors.append("불량품 ID를 입력하세요")
+
+    return errors
+
+def register_defectCategory(data: defectCategoryRegistration)->dict:
+   
+    try:
+        with get_connection() as connection:
+            cursor = connection.cursor()
+
+            cursor.execute(
+                """
+                INSERT INTO defect_category (
+                category_id,
+                defect_detail
+                )
+                VALUES (?, ?)
+                """
+                ,(data.category_id, data.defect_detail)
+            )
+        connection.commit()
+
+    except sqlite3.IntegrityError as exc:
+           raise ValueError("데이터베이스 제약조건을 만족하지 못해 저장하지 못했습니다.") from exc

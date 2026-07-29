@@ -62,7 +62,7 @@ with tab2:
     }
 
     with st.form("production_form"):
-        product_label = st.selectbox("생산할 완제품 품목", list(product_option.keys()) )
+        product_label = st.selectbox(" 완제품 품목", list(product_option.keys()) )
         production_date = st.date_input("생산일자", value=date.today())
         production_no = st.text_input("생산번호", value=f"PRD-{date.today().strftime('%Y%m%d')}-NEW")
         output_lot_no = st.text_input("생성할 완제품 LOT 번호", value=f"FG-NEW-{date.today().strftime('%Y%m%d')}-001")
