@@ -30,9 +30,25 @@ if submitted:
     except ValueError as exc:
             st.error(str(exc))  
 
+
+with st.form("사용 업데이트"):
+    st.subheader("품목 단종여부 업데이트")
+    item_id : int = st.number_input(label="ID", value=0, min_value=0)
+    is_active : str = st.selectbox(label="사용여부",options=['Y', 'N'])
+    submitted = st.form_submit_button(label="등록")
+
+if submitted:
+     try:
+          result = queries.item_active_update(is_active = is_active, item_id = item_id)
+          st.write(result)
+
+     except ValueError as exc:
+            st.error(str(exc)) 
+
+
+
 st.subheader("Item 조회")
 
 df=queries.items()
 
 ui.show_dataframe(df)
-

@@ -17,7 +17,7 @@ if submitted:
     try:
        result = services.register_defectCategory(data)
        st.success
-       st.wirte(result)
+       st.write(result)
        st.info(
            """
            저장된 목록
@@ -45,13 +45,31 @@ with tab2:
     lots= queries.lots_for_select()
 
     lots_option={
-        f"{lot['lot_no']}":lot["qty"]
+        f"{lot['lot_id']}":lot["qty"]
                 for lot in lots
     }
    
     with st.form("불량 등록"):
         st.subheader("불량 등록")
         defect_id : int = st.number_input(label="ID", value=0, min_value=0)
-        lot_no : str = st.selectbox(label='LOT_ID',options=list(lots_option.keys()) )
-        qty : int = st.number_input(label='qty',min_value=0, max_value=int(lots_option[lot_no]))
-        category_id : int =st.number_input(label='Category')
+        lot_id : str = st.selectbox(label='LOT_ID',options=list(lots_option.keys()) )
+        qty : float = st.number_input(label='qty',min_value=0, max_value=int(lots_option[lot_id]))
+        category_id : int =st.number_input(label='Category', value=0)
+        submitted = st.form_submit_button("등록")
+
+    if submitted:
+        data=services.defectItemRegistration(
+            defect_id=defect_id,
+            lot_id=lot_id,
+            category_id=category_id,
+            defect_qty=defect_id
+        )
+
+        try:
+            result = services.register_defectItem(data)
+            st.write(result)
+
+        except ValueError as exc:
+            st.error(str(exc))
+
+    st.rerun()  

@@ -156,8 +156,9 @@ class defectCategoryRegistration:
 @dataclass
 class defectItemRegistration:
     defect_id: int
-    item_id: int
+    lot_id: int
     category_id: int 
+    defect_qty: float
 
 @dataclass
 class itemRegistration: 
@@ -210,6 +211,32 @@ def register_item(data: itemRegistration) -> dict:
                     ,(data.item_id, data.item_code, 
                       data.item_name, data.item_type, 
                       data.unit, data.is_active)
+                )
+            connection.commit()
+
+    except sqlite3.IntegrityError as exc:
+            raise ValueError("데이터베이스 제약조건을 만족하지 못해 저장하지 못했습니다.") from exc
+
+
+
+def register_defectItem(data: defectItemRegistration) -> dict:
+
+    try:
+            with get_connection() as connection: 
+                cursor = connection.cursor()
+
+                cursor.execute(
+                    """
+                    INSERT INTO defect_item (
+                    defect_id,
+                    lot_id,
+                    category_id,
+                    defect_qty
+                    )
+                    VALUES(?,?,?,?) 
+                    """
+                    ,(data.defect_id, data.lot_id,
+                      data.category_id, data.defect_qty)
                 )
             connection.commit()
 

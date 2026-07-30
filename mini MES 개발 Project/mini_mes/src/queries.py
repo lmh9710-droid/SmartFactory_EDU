@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.db import fetch_all, fetch_dataframe, fetch_one
+from src.db import fetch_all, fetch_dataframe, fetch_one, update_dataframe
 
 
 def table_counts():
@@ -382,7 +382,6 @@ def defect_category():
             *
         FROM defect_category
         ORDER BY category_id 
-        ;
         """
     )
 
@@ -391,20 +390,31 @@ def defect_item():
         """
         SELECT
             di.defect_id,
-            i.item_id,
+            l.lot_no,
             i.item_name,
-            c.category_id,
-            c.defect_detail
+            c.defect_detail,
+            di.defect_qty
         FROM defect_item AS di
-        JOIN item AS i 
-            ON di.item_id = i.item_id
+        JOIN lot AS l
+            ON di.lot_id = l.lot_id
         JOIN defect_category AS c
             ON di.category_id = c.category_id
-        ORDER BY di.defect_id;
+        JOIN item AS i
+            ON l.item_id = i.item_id
+        ORDER BY di.defect_id
         """
     )
  
-
+def item_active_update( is_active:str, item_id: int):
+    return update_dataframe(
+        """
+        UPDATE item
+        SET is_active = ?
+        WHERE item_id = ?
+        """
+       ,(is_active, item_id)
+    )
+    
 
 
 def next_id(table_name: str, id_column: str) -> int:
