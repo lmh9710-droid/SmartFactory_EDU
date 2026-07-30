@@ -12,8 +12,8 @@ int main()
     
 
 
-       copy1 = name;                         // copy는 시작 글자 지점
-    copy2 = name + strlen(name) - 1;    // name2는 실제 문자열의 '마지막 글자' 지점 (\0 직전)
+       copy1 = name;                         // copy1는 시작 글자 지점
+    copy2 = name + strlen(name) - 1;    // copy2는 실제 문자열의 '마지막 글자' 지점 (\0 직전)
 
        while (copy1 < copy2)
     {
