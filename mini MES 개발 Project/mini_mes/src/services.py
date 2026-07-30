@@ -159,23 +159,14 @@ class defectItemRegistration:
     item_id: int
     category_id: int 
 
-def validate_defectCategory(data: defectCategoryRegistration) -> list[str]:
-    errors: list[str] = []
-
-    if not data.defect_detail.strip():
-        errors.append("불량 상세내용 입력하세요.")
-
-    return errors
-
-def validate_defectItem(data: defectItemRegistration) -> list[str]:
-    errors: list[str] = []
-
-    if not data.defect_id.strip():
-        errors.append("불량ID 입력하세요.")
-    if not data.item_id.strip():
-        errors.append("불량품 ID를 입력하세요")
-
-    return errors
+@dataclass
+class itemRegistration: 
+     item_id: int
+     item_code: str
+     item_name: str
+     item_type: str
+     unit: str
+     is_active: str
 
 def register_defectCategory(data: defectCategoryRegistration)->dict:
    
@@ -197,3 +188,30 @@ def register_defectCategory(data: defectCategoryRegistration)->dict:
 
     except sqlite3.IntegrityError as exc:
            raise ValueError("데이터베이스 제약조건을 만족하지 못해 저장하지 못했습니다.") from exc
+
+def register_item(data: itemRegistration) -> dict:
+
+    try:
+            with get_connection() as connection: 
+                cursor = connection.cursor()
+
+                cursor.execute(
+                    """
+                    INSERT INTO item (
+                    item_id,
+                    item_code,
+                    item_name,
+                    item_type,
+                    unit,
+                    is_active
+                    )
+                    VALUES(?,?,?,?,?,?) 
+                    """
+                    ,(data.item_id, data.item_code, 
+                      data.item_name, data.item_type, 
+                      data.unit, data.is_active)
+                )
+            connection.commit()
+
+    except sqlite3.IntegrityError as exc:
+            raise ValueError("데이터베이스 제약조건을 만족하지 못해 저장하지 못했습니다.") from exc

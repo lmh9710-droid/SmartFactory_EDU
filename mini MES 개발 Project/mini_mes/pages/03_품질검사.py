@@ -1,6 +1,6 @@
 import streamlit as st
 
-from src import db, queries, services, ui
+from src import queries, services, ui
 
 with st.form("불량항목 등록"):
     st.subheader("불량항목 등록")
@@ -38,3 +38,20 @@ tab1 , tab2 = st.tabs(["불량조회", "불량 등록" ])
 with tab1:
   df2 = queries.defect_item()
   ui.show_dataframe(df2)
+
+
+with tab2:
+
+    lots= queries.lots_for_select()
+
+    lots_option={
+        f"{lot['lot_no']}":lot["qty"]
+                for lot in lots
+    }
+   
+    with st.form("불량 등록"):
+        st.subheader("불량 등록")
+        defect_id : int = st.number_input(label="ID", value=0, min_value=0)
+        lot_no : str = st.selectbox(label='LOT_ID',options=list(lots_option.keys()) )
+        qty : int = st.number_input(label='qty',min_value=0, max_value=int(lots_option[lot_no]))
+        category_id : int =st.number_input(label='Category')

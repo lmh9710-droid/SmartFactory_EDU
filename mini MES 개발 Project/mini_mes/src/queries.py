@@ -64,7 +64,7 @@ def items(keyword: str = "", item_type: str = "전체"):
             i.item_type,
             i.unit,
             i.is_active
-        ORDER BY i.item_type, i.item_code
+        ORDER BY i.item_id
         """,
         tuple(params),
     )
@@ -403,6 +403,7 @@ def defect_item():
         ORDER BY di.defect_id;
         """
     )
+ 
 
 
 
