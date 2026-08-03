@@ -393,7 +393,8 @@ def defect_item():
             l.lot_no,
             i.item_name,
             c.defect_detail,
-            di.defect_qty
+            di.defect_qty,
+            l.produced_date
         FROM defect_item AS di
         JOIN lot AS l
             ON di.lot_id = l.lot_id

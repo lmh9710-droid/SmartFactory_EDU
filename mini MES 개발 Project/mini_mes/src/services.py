@@ -7,7 +7,6 @@ import sqlite3
 from src.db import get_connection
 from src.queries import lot_no_exists, production_no_exists
 
-
 @dataclass
 class ProductionRegistration:
     product_item_id: int

@@ -4,6 +4,8 @@ from datetime import date, timedelta
 
 from src import queries, ui, services
 
+st.title("생산실적")
+
 ui.setup_page("생산실적 조회")
 
 
@@ -31,6 +33,8 @@ with tab1:
             ("완제품 LOT 수", df["output_lot_no"].nunique()),
         ]
     )
+
+ 
 
  st.subheader("생산 이벤트와 결과 LOT")
  ui.show_dataframe(df)

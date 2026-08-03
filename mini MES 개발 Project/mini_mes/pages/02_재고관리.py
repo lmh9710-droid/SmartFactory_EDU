@@ -20,7 +20,6 @@ with tab1:
         ui.metric_row(
             [
                 ("전체 품목", int(type_counts["item_count"].sum())),
-                ("제품", count_map.get("PRODUCT", 0)),
                 ("원자재", count_map.get("MATERIAL", 0)),
             ]
         )
@@ -69,32 +68,6 @@ with tab2:
         qty = st.number_input("입고수량", min_value=0.0, value=1000.0, step=100.0)
         expire_date = st.date_input("완제품 유효기간", value=date.today()+timedelta(days= 180))
 
-        st.subheader("투입 원자재")
-        selected_material_labels = st.multiselect(
-            "원자재 LOT 선택",
-            list(material_options.keys()),
-            default = list(material_options.keys())[:3],
-        )
-        
-
-        material_rows = []
-        for label in selected_material_labels:
-            lot = material_options[label]
-            used_qty = st.number_input(
-                f"{lot['lot_no']} 투입수량",
-                min_value= 0.0,
-                value= float(qty),
-                step =100.0,
-                key=f"material_qty_{lot['lot_id']}",
-
-            )
-            material_rows.append(
-                {
-                    "material_item_id" : lot["item_id"],
-                    "material_lot_id" : lot["lot_id"],
-                    "qty": used_qty,   
-                }
-            )
 
         submitted = st.form_submit_button("생산실적 저장")
 
@@ -106,7 +79,7 @@ with tab2:
             production_date= production_date,
             qty=qty,
             expire_date=expire_date,
-            material_rows=material_rows
+            material_rows=None
 
         )
 

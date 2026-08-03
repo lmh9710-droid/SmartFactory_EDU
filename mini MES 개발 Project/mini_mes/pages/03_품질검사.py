@@ -2,74 +2,87 @@ import streamlit as st
 
 from src import queries, services, ui
 
-with st.form("불량항목 등록"):
-    st.subheader("불량항목 등록")
-    category_id : int = st.number_input("등록할 ID", value=0)
-    defect_detail : str = st.text_input("등록할 내용")
-    submitted = st.form_submit_button("등록")
+st.title("품질검사")
+st.divider()
 
-if submitted:
-    data = services.defectCategoryRegistration(
-        category_id=category_id,
-        defect_detail=defect_detail
-    )
+col_category, col_defect= st.columns([1, 2])
 
-    try:
-       result = services.register_defectCategory(data)
-       st.success
-       st.write(result)
-       st.info(
-           """
-           저장된 목록
-           1. 목록 ID
-           2. 불량 상세내용
-           """
-       )
-    except ValueError as exc:
-        st.error(str(exc))   
+with col_category:
+    with st.form("불량항목 등록"):
 
+        st.subheader("불량항목 등록")
+        category_id : int = st.number_input("등록할 ID", value=0)
+        defect_detail : str = st.text_input("등록할 내용")
+        submitted_category = st.form_submit_button("등록")
 
-df1 = queries.defect_category()
-
-ui.show_dataframe(df1)
-
-tab1 , tab2 = st.tabs(["불량조회", "불량 등록" ])
-
-with tab1:
-  df2 = queries.defect_item()
-  ui.show_dataframe(df2)
-
-
-with tab2:
-
-    lots= queries.lots_for_select()
-
-    lots_option={
-        f"{lot['lot_id']}":lot["qty"]
-                for lot in lots
-    }
-   
-    with st.form("불량 등록"):
-        st.subheader("불량 등록")
-        defect_id : int = st.number_input(label="ID", value=0, min_value=0)
-        lot_id : str = st.selectbox(label='LOT_ID',options=list(lots_option.keys()) )
-        qty : float = st.number_input(label='qty',min_value=0, max_value=int(lots_option[lot_id]))
-        category_id : int =st.number_input(label='Category', value=0)
-        submitted = st.form_submit_button("등록")
-
-    if submitted:
-        data=services.defectItemRegistration(
-            defect_id=defect_id,
-            lot_id=lot_id,
+        st.divider()
+        st.subheader("불량항목 조회")
+        df1 = queries.defect_category()
+        ui.show_dataframe(df1)
+        
+    if submitted_category:
+        data = services.defectCategoryRegistration(
             category_id=category_id,
-            defect_qty=defect_id
+            defect_detail=defect_detail
         )
 
         try:
-            result = services.register_defectItem(data)
-            st.write(result)
-
+         result = services.register_defectCategory(data)
+         st.success("등록성공")
+         st.write(result)
+         st.info(
+            """
+            저장된 목록
+            1. 목록 ID
+            2. 불량 상세내용
+            """
+        )
         except ValueError as exc:
-            st.error(str(exc))
+               st.error(str(exc))   
 
-    st.rerun()  
+    
+
+with col_defect:
+    tab1 , tab2 = st.tabs(["불량조회", "불량 등록" ])
+
+    with tab1:
+       df2 = queries.defect_item()
+       ui.show_dataframe(df2)
+       st.divider()
+       st.subheader("불량수 조회")
+       st.line_chart(df2.set_index("produced_date")["defect_qty"])
+    
+
+
+    with tab2:
+
+        lots= queries.lots_for_select()
+
+        lots_option={
+            f"{lot['lot_id']}":lot["qty"]
+                    for lot in lots
+        }
+    
+        with st.form("불량 등록"):
+            st.subheader("불량 등록")
+            defect_id : int = st.number_input(label="ID", value=0, min_value=0)
+            lot_id : str = st.selectbox(label='LOT_ID',options=list(lots_option.keys()) )
+            qty : float = st.number_input(label='qty',min_value=0, max_value=int(lots_option[lot_id]))
+            category_id : int =st.number_input(label='Category', value=0)
+            submitted_item = st.form_submit_button("등록")
+
+        if submitted_item:
+            data=services.defectItemRegistration(
+                defect_id=defect_id,
+                lot_id=lot_id,
+                category_id=category_id,
+                defect_qty=defect_id
+            )
+
+            try:
+                result = services.register_defectItem(data)
+                st.write(result)
+                st.rerun()  
+
+            except ValueError as exc:
+                st.error(str(exc))

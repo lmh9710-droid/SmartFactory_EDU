@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DB_PATH = BASE_DIR/"db"/"mini_mes.db"
+DB_PATH = BASE_DIR/"sql"/"mini_mes.db"
 
 def database_exists() -> bool:
     return DB_PATH.exists()
@@ -20,7 +20,7 @@ def get_connection() -> sqlite3.Connection:
 
 def fetch_dataframe(sql: str, params: tuple = ()) -> pd.DataFrame:
     with get_connection() as connection:
-        return pd.read_sql_query(sql, connection, params=params)
+        return pd.read_sql_query(sql, con=connection, params=params)
 
 def fetch_one(sql: str, params: tuple=()) -> sqlite3.Row | None:
     with get_connection() as connection:
