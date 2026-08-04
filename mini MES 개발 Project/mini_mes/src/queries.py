@@ -415,14 +415,14 @@ def item_active_update( is_active:str, item_id: int):
        ,(is_active, item_id)
     )
 
-def received_date_update(received_date: str,lot_id: int):
+def status_update(status: str, lot_id: int):
     return update_dataframe(
         """
-        UPDATE lot
-        SET received_date = ?
-        WHERE lot_id =?
+        UPDATE production
+        SET status = ?
+        WHERE output_lot_id =?
         """
-        ,(received_date, lot_id)
+        ,(status, lot_id)
     )
     
 
