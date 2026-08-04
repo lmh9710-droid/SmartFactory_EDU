@@ -86,7 +86,7 @@ def lots(keyword: str = "", lot_type: str = "전체", item_id: int | None = None
     where = ["1 = 1"]
 
     if keyword:
-        where.append("l.lot_no LIKE ?")
+        where.append("i.item_name LIKE ?")
         params.append(f"%{keyword}%")
 
     if lot_type != "전체":
@@ -192,8 +192,7 @@ def productions(keyword: str = "", date_from=None, date_to=None):
             product.item_name AS product_name,
             output_lot.lot_no AS output_lot_no,
             p.qty AS production_qty,
-            p.status,
-            COUNT(pm.production_material_id) AS material_row_count
+            p.status
         FROM production AS p
         JOIN item AS product
             ON p.item_id = product.item_id
@@ -414,6 +413,16 @@ def item_active_update( is_active:str, item_id: int):
         WHERE item_id = ?
         """
        ,(is_active, item_id)
+    )
+
+def received_date_update(received_date: str,lot_id: int):
+    return update_dataframe(
+        """
+        UPDATE lot
+        SET received_date = ?
+        WHERE lot_id =?
+        """
+        ,(received_date, lot_id)
     )
     
 

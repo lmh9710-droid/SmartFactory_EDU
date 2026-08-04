@@ -46,11 +46,11 @@ with col_defect:
     tab1 , tab2 = st.tabs(["불량조회", "불량 등록" ])
 
     with tab1:
-       df2 = queries.defect_item()
-       ui.show_dataframe(df2)
+       df = queries.defect_item()
+       ui.show_dataframe(df)
        st.divider()
        st.subheader("불량수 조회")
-       st.line_chart(df2.set_index("produced_date")["defect_qty"])
+       st.line_chart(df.set_index("produced_date")["defect_qty"])
     
 
 
@@ -59,24 +59,23 @@ with col_defect:
         lots= queries.lots_for_select()
 
         lots_option={
-            f"{lot['lot_id']}":lot["qty"]
+            f"{lot['lot_no']}|{lot['item_name']}":lot["lot_id"]
                     for lot in lots
         }
     
         with st.form("불량 등록"):
             st.subheader("불량 등록")
-            defect_id : int = st.number_input(label="ID", value=0, min_value=0)
-            lot_id : str = st.selectbox(label='LOT_ID',options=list(lots_option.keys()) )
-            qty : float = st.number_input(label='qty',min_value=0, max_value=int(lots_option[lot_id]))
+            lot_no : str = st.selectbox(label='LOT_ID',options=list(lots_option.keys()) )
+            qty : float = st.number_input(label='qty',min_value=0)
             category_id : int =st.number_input(label='Category', value=0)
-            submitted_item = st.form_submit_button("등록")
+
+            submitted_item = st.form_submit_button(label="등록")
 
         if submitted_item:
             data=services.defectItemRegistration(
-                defect_id=defect_id,
-                lot_id=lot_id,
+                lot_id=lots_option[lot_no],
                 category_id=category_id,
-                defect_qty=defect_id
+                defect_qty=qty
             )
 
             try:

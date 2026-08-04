@@ -27,15 +27,18 @@ if not shipable_lots:
       st.stop
 
 shipable_options = {
-     f"{lot['lot_no']}|{lot['item_name']}|{lot['qty']: ,.0f}" : lot
+     f"{lot['lot_no']}|{lot['item_name']}|{lot['qty']: ,.0f}" : lot['lot_id']
      for lot in shipable_lots
 }
 
 with st.form("shipping"):
-    shippping_date = st.date_input("출하일자", value=date.today())
-    selected_ship_label = st.multiselect(
+    shipable_date = st.date_input("출하일자", value=date.today())
+    selected_ship_label = st.selectbox(
          label = "출하 LOT 선택",
          options = list(shipable_options.keys()),
     )
+    submitted  = st.form_submit_button(label="출하등록")
 
-
+if submitted:
+   queries.received_date_update(received_date=shipable_date, 
+                               lot_id=shipable_options[selected_ship_label])

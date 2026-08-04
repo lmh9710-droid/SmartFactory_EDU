@@ -4,44 +4,35 @@ from datetime import date, timedelta
 
 from src import queries, ui, services
 
-keyword = st.text_input("품목 코드 또는 품목명 검색")
-item_type =  "MATERIAL"
+st.title("재고관리")
+st.divider()
 
-df = queries.items(keyword=keyword, item_type= item_type)
-type_counts = queries.item_type_counts()
+# type_counts = queries.item_type_counts()
+# if not type_counts.empty:
+#         count_map = dict(zip(type_counts["item_type"], type_counts["item_count"]))
+#         ui.metric_row(
+#             [
+#                 ("전체 품목", int(type_counts["item_count"].sum())),
+#                 ("원자재", count_map.get("MATERIAL", 0)),
+#             ]
+#         )
 
-tab1, tab2 = st.tabs(["재고조회", "부품입고 등록"])
+lots = queries.lots(lot_type='RECEIPT')
+if not lots.empty:
+    ui.metric_row(
+        [
+            ("조회 LOT", len(lots)),
+            ("현재고 합계", f"{lots['qty'].sum(): ,.0f}"),
+            ("품목 수", lots["item_name"].nunique()),
+        ]
+    )
+st.divider()
 
-#재고조회
-with tab1:
-
-    if not type_counts.empty:
-        count_map = dict(zip(type_counts["item_type"], type_counts["item_count"]))
-        ui.metric_row(
-            [
-                ("전체 품목", int(type_counts["item_count"].sum())),
-                ("원자재", count_map.get("MATERIAL", 0)),
-            ]
-        )
-
-    st.subheader("조회 결과")
-    ui.show_dataframe(df)
-
-    if not df.empty:
-        selected_item = st.selectbox("상세 확인 품목", df["item_name"].tolist())
-        selected_row = df[df["item_name"] == selected_item].iloc[0]
-        st.write(
-            {
-                "품목 ID": int(selected_row["item_id"]),
-                "품목 코드": selected_row["item_code"],
-                "품목 유형": selected_row["item_type"],
-                "단위": selected_row["unit"],
-                "연결 Lot 수": int(selected_row["lot_count"]),
-            }
-        )
+col_input, col_view = st.columns([1, 2])
 
 # 부품입고 등록
-with tab2: 
+with col_input: 
+
     products = queries.active_items_for_select("MATERIAL")
     material_lots = queries.lots_for_select("RECEIPT")
 
@@ -60,41 +51,48 @@ with tab2:
         for lot in material_lots
     }
 
-    with st.form("production_form"):
-        product_label = st.selectbox("입고 품목", list(product_option.keys()) )
-        production_date = st.date_input("입고 일자", value=date.today())
-        production_no = st.text_input("생산번호", value=f"PRD-{date.today().strftime('%Y%m%d')}-NEW")
-        output_lot_no = st.text_input("생성할 입고품 LOT 번호", value=f"FG-NEW-{date.today().strftime('%Y%m%d')}-001")
-        qty = st.number_input("입고수량", min_value=0.0, value=1000.0, step=100.0)
-        expire_date = st.date_input("완제품 유효기간", value=date.today()+timedelta(days= 180))
+    with st.form("Material_form"):
+        st.subheader("입고 등록")
+        product_label = st.selectbox(label= "입고 품목", options= list(product_option.keys()) )
+        received_date = st.date_input(label= "입고 일자", value=date.today())
+        receipt_lot_no = st.text_input(label= "생성할 입고품 LOT 번호", value=f"RM-NEW-{date.today().strftime('%Y%m%d')}-001")
+        qty = st.number_input(label="입고수량", min_value=0.0, value=1000.0, step=100.0)
+        expire_date = st.date_input(label= "완제품 유효기간", value=date.today()+timedelta(days= 180))
 
-
-        submitted = st.form_submit_button("생산실적 저장")
+        submitted = st.form_submit_button(label="입고품 등록")
 
     if submitted:
-        data = services.ProductionRegistration(
-            product_item_id = product_option[product_label],
-            output_lot_no = output_lot_no,
-            production_no = production_no,
-            production_date= production_date,
+        data = services.MaterialReceipt(
+            lot_no = receipt_lot_no,
+            item_id= product_option[product_label],
             qty=qty,
+            received_date= received_date,
             expire_date=expire_date,
-            material_rows=None
-
         )
 
         try:
-            result = services.register_production(data)
+            result = services.receive_material(data)
             st.success("생산실적이 정상적으로 등록되었습니다.")
             st.write(result)
             st.info(
                 """
                 저장된 직업:
-                1. 완제품 LOT 1건 생성
-                2. 생산실적 1건 생성 
-                3. 선택한 원자재 LOT 별 투입 이력 생성 
+                입고 LOT 1건 생성
                 """
             )
 
         except ValueError as exc:
             st.error(str(exc))
+
+#부품 조회
+with col_view:
+  keyword = st.text_input("품목 검색")
+  lot_type =  "RECEIPT"
+
+  with st.form("조회"):
+    st.subheader("조회 결과")
+    df = queries.lots(keyword=keyword, lot_type= lot_type)
+    ui.show_dataframe(df)
+
+  st.subheader("품목별 수량")
+  st.bar_chart(df.set_index("item_name")["qty"])

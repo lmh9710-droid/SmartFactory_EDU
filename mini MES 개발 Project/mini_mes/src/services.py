@@ -18,16 +18,44 @@ class ProductionRegistration:
     material_rows: list[dict]
 
 @dataclass 
-class MaterialRegistration:
-    production_material_id: int
-    production_id: int 
-    material_item_id: int 
-    material_lot_id: int 
-    production_date: date
+class MaterialReceipt:
+    lot_no: str
+    item_id: int 
     qty: float
+    received_date: date
     expire_date: date | None
-    material_lot_no: str
 
+def _next_id(cursor: sqlite3.Cursor, table_name: str, id_column: str) -> int:
+     return int(cursor.execute(f"SELECT COALESCE(MAX({id_column}), 0) + 1 FROM {table_name}").fetchone()[0])
+
+def _ensure_unique(cursor: sqlite3.Cursor, table_name: str, column: str, value: str, label: str ) -> None:
+     row = cursor.execute(f"SELECT 1 FROM {table_name} WHERE {column} = ?", (value.strip(),)).fetchone()
+     if row: 
+          raise ValueError(f"이미 존재하는 {label}입니다: {value}")
+
+def receive_material(data: MaterialReceipt) -> dict:
+     if data.qty <= 0:
+          raise ValueError("입고수량은 0보다 커야 합니다.")
+     if not data.lot_no.strip():
+          raise ValueError("LOT 번호를 입력하세요.")
+
+     try: 
+        with get_connection() as connection:
+            cursor = connection.cursor()
+            lot_id = _next_id(cursor, "lot", "lot_id")
+            cursor.execute(
+                """
+                INSERT INTO lot (
+                    lot_id, lot_no, item_id, lot_type, qty,
+                    received_date, expire_date)
+                    VALUES(?, ?, ?, 'RECEIPT', ?, ?, ?)
+                """,
+                (lot_id, data.lot_no, data.item_id, data.qty,
+                 data.received_date, data.expire_date)
+            ) 
+     except sqlite3.IntegrityError as exc:
+              raise ValueError("데이터베이스 제약조건을 만족하지 못해 저장하지 못했습니다.") from exc
+      
 
 
 def validate_registration(data: ProductionRegistration) -> list[str]:
@@ -57,19 +85,7 @@ def validate_registration(data: ProductionRegistration) -> list[str]:
         errors.append("이미 존재하는 생산번호입니다.")
 
     return errors
-
-def material_registration(data: MaterialRegistration) -> list[str]:
-    errors: list[str] = []
-
-    if not data.material_lot_no.strip():
-         errors.append("입고품 LOT 번호를 입력하세요.")
-    if not data.qty <= 0:
-         errors.append("생산수량은 0보다 켜야 합니다.")
-    
-    if lot_no_exists(data.lot_no.strip()):
-         errors.append("이미 존재하는 부품 LOT 번호입니다.")
-
-    return errors     
+ 
 
 
 def register_production(data: ProductionRegistration) -> dict:
@@ -171,67 +187,7 @@ def register_production(data: ProductionRegistration) -> dict:
     except sqlite3.IntegrityError as exc:
         raise ValueError("데이터베이스 제약조건을 만족하지 못해 저장하지 못했습니다.") from exc
 
-def register_material(data: MaterialRegistration) -> dict:
-     errors = material_registration(data)
-     if errors:
-        raise ValueError("\n". join(errors))
 
-     try:
-         with get_connection() as connection:
-            cursor = connection.cursor()
-
-            next_material_lot_id = cursor.execute("SELECT COALESCE(MAX(lot_id),0) + 1 FROM lot").fetchone()[0]
-            next_material_id = cursor.execute(
-                 "SELECT COALESCE(MAX(prduction_material_id),0) + 1 FROM production_material"
-            ).fetchone()[0]
-
-            cursor.execute(
-                 """
-                 INSERT INTO production_material (
-                    production_material_id, 
-                    production_id,
-                    material_item_id,
-                    material_lot_id,
-                    qty
-                 )
-                 VALUES (?, ?, ?, ?, ?)
-                 """,
-                 (
-                      next_material_id,
-                      data.production_id,
-                      data.material_item_id,
-                      next_material_lot_id,
-                      data.qty
-                 ),
-            ) 
-
-            cursor.execute(
-                 """
-                INSERT INTO lot(
-                  lot_id,
-                  lot_no,
-                  item_id,
-                  lot_type,
-                  qty, 
-                  received_date,
-                  produced_date,
-                  expire_date
-                )
-                VALUES(?, ?, ?, 'MATERIAL', ?, NULL, ?, ?)
-                 """,
-                 (
-                      next_material_lot_id,
-                      data.material_lot_no.strip(),
-                      data.material_item_id,
-                      data.qty,
-                      str(data.production_date),
-                      str(data.expire_date) if data.expire_date else None,
-                 ),
-
-            ) 
-
-     except sqlite3.IntegrityError as exc:
-          raise ValueError("데이터베이스 제약조건을 만족하지 못해 저장하지 못했습니다. ") from exc        
 
 @dataclass
 class defectCategoryRegistration:
@@ -240,7 +196,6 @@ class defectCategoryRegistration:
 
 @dataclass
 class defectItemRegistration:
-    defect_id: int
     lot_id: int
     category_id: int 
     defect_qty: float
@@ -255,7 +210,11 @@ class itemRegistration:
      is_active: str
 
 def register_defectCategory(data: defectCategoryRegistration)->dict:
-   
+
+    if not data.defect_detail.strip():
+         raise ValueError("카테고리 내용 입력하세요.")
+
+         
     try:
         with get_connection() as connection:
             cursor = connection.cursor()
@@ -305,11 +264,14 @@ def register_item(data: itemRegistration) -> dict:
 
 
 def register_defectItem(data: defectItemRegistration) -> dict:
-
-    try:
+    if data.defect_qty <= 0:
+         raise ValueError("입력할 불량수량은 0보다 커야 합니다.")
+    
+    try:   
             with get_connection() as connection: 
                 cursor = connection.cursor()
 
+                defect_id = _next_id(cursor, "defect_item", "defect_id")
                 cursor.execute(
                     """
                     INSERT INTO defect_item (
@@ -320,7 +282,7 @@ def register_defectItem(data: defectItemRegistration) -> dict:
                     )
                     VALUES(?,?,?,?) 
                     """
-                    ,(data.defect_id, data.lot_id,
+                    ,(defect_id, data.lot_id,
                       data.category_id, data.defect_qty)
                 )
             connection.commit()

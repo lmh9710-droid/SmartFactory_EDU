@@ -9,22 +9,36 @@ st.title("생산실적")
 ui.setup_page("생산실적 조회")
 
 
-col1, col2, col3 = st.columns(3)
-keyword = col1.text_input("생산번호, 품목명, 완제품 LOT 검색")
-use_data_filter = col2.checkbox("생산일자 필터 사용 ")
+# col1, col2, col3 = st.columns(3)
+# keyword = col1.text_input("생산번호, 품목명, 완제품 LOT 검색")
+# use_data_filter = col2.checkbox("생산일자 필터 사용 ")
 
-date_from = None
-date_to = None
+# date_from = None
+# date_to = None
 
-if use_data_filter:
-    date_from = col2.date_input("시작일")
-    date_to = col3.date_input('종료일')
+# if use_data_filter:
+#     date_from = col2.date_input("시작일")
+#     date_to = col3.date_input('종료일')
 
-df = queries.productions(keyword=keyword, date_from = date_from, date_to = date_to)
+# df = queries.productions(keyword=keyword, date_from = date_from, date_to = date_to)
 
 tab1, tab2 = st.tabs(["생산실적 조회", "생산완료 등록"])
 
 with tab1:
+ col1, col2, col3 = st.columns(3)
+ keyword = col1.text_input("생산번호, 품목명, 완제품 LOT 검색")
+ use_data_filter = col2.checkbox("생산일자 필터 사용 ")
+
+ date_from = None 
+ date_to = None
+ df = queries.productions(keyword=keyword, date_from = date_from, date_to = date_to)
+
+ if use_data_filter:
+    date_from = col2.date_input("시작일")
+    date_to = col3.date_input('종료일')
+
+ df = queries.productions(keyword=keyword, date_from = date_from, date_to = date_to)
+
  if not df.empty:
     ui.metric_row(
         [
@@ -34,7 +48,6 @@ with tab1:
         ]
     )
 
- 
 
  st.subheader("생산 이벤트와 결과 LOT")
  ui.show_dataframe(df)
