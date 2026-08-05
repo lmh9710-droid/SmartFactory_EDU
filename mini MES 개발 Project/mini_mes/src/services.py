@@ -28,10 +28,6 @@ class MaterialReceipt:
 def _next_id(cursor: sqlite3.Cursor, table_name: str, id_column: str) -> int:
      return int(cursor.execute(f"SELECT COALESCE(MAX({id_column}), 0) + 1 FROM {table_name}").fetchone()[0])
 
-def _ensure_unique(cursor: sqlite3.Cursor, table_name: str, column: str, value: str, label: str ) -> None:
-     row = cursor.execute(f"SELECT 1 FROM {table_name} WHERE {column} = ?", (value.strip(),)).fetchone()
-     if row: 
-          raise ValueError(f"이미 존재하는 {label}입니다: {value}")
 
 def receive_material(data: MaterialReceipt) -> dict:
      if data.qty <= 0:
@@ -202,7 +198,6 @@ class defectItemRegistration:
 
 @dataclass
 class itemRegistration: 
-     item_id: int
      item_code: str
      item_name: str
      item_type: str
@@ -239,7 +234,7 @@ def register_item(data: itemRegistration) -> dict:
     try:
             with get_connection() as connection: 
                 cursor = connection.cursor()
-
+                item_id = _next_id(cursor, 'item', 'item_id')
                 cursor.execute(
                     """
                     INSERT INTO item (
@@ -252,7 +247,7 @@ def register_item(data: itemRegistration) -> dict:
                     )
                     VALUES(?,?,?,?,?,?) 
                     """
-                    ,(data.item_id, data.item_code, 
+                    ,(item_id, data.item_code, 
                       data.item_name, data.item_type, 
                       data.unit, data.is_active)
                 )

@@ -8,6 +8,8 @@ st.divider()
 col_category, col_defect= st.columns([1, 2])
 
 with col_category:
+
+
     with st.form("불량항목 등록"):
 
         st.subheader("불량항목 등록")
@@ -36,7 +38,8 @@ with col_category:
             1. 목록 ID
             2. 불량 상세내용
             """
-        )
+         )
+         st.rerun()
         except ValueError as exc:
                st.error(str(exc))   
 
@@ -48,33 +51,38 @@ with col_defect:
     with tab1:
        df = queries.defect_item()
        ui.show_dataframe(df)
-       st.divider()
-       st.subheader("불량수 조회")
-       st.line_chart(df.set_index("produced_date")["defect_qty"])
-    
+
 
 
     with tab2:
 
         lots= queries.lots_for_select()
 
+        categiries = queries.defect_category_for_select()
+
         lots_option={
             f"{lot['lot_no']}|{lot['item_name']}":lot["lot_id"]
                     for lot in lots
         }
+
+        categiries_option= {
+            f"{category['defect_detail']}": category['category_id']
+            for category in categiries
+        }
+
     
         with st.form("불량 등록"):
             st.subheader("불량 등록")
             lot_no : str = st.selectbox(label='LOT_ID',options=list(lots_option.keys()) )
             qty : float = st.number_input(label='qty',min_value=0)
-            category_id : int =st.number_input(label='Category', value=0)
+            defect_detail : str =st.selectbox(label='Category', options=list(categiries_option.keys()))
 
             submitted_item = st.form_submit_button(label="등록")
 
         if submitted_item:
             data=services.defectItemRegistration(
                 lot_id=lots_option[lot_no],
-                category_id=category_id,
+                category_id=categiries_option[defect_detail],
                 defect_qty=qty
             )
 

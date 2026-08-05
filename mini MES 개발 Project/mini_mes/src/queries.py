@@ -165,6 +165,27 @@ def active_items_for_select(item_type: str | None = None):
         params,
     )
 
+def status_items_for_select():
+    where = "WHERE status = 'COMPLETED'" 
+    return fetch_all(
+       f"""
+        SELECT p.production_id, l.lot_no, i.item_name, l.qty, l.lot_id
+        FROM production AS p
+        JOIN lot AS l 
+         ON p.output_lot_id = l.lot_id
+        JOIN item AS i
+         ON l.item_id = i.item_id
+        {where} 
+        """
+    )
+def defect_category_for_select():
+    return fetch_all(
+        """
+        SELECT category_id, defect_detail
+        FROM defect_category 
+        """
+    )
+
 
 def productions(keyword: str = "", date_from=None, date_to=None):
     params: list[object] = []
@@ -424,12 +445,25 @@ def status_update(status: str, lot_id: int):
         """
         ,(status, lot_id)
     )
-    
 
-
-def next_id(table_name: str, id_column: str) -> int:
-    row = fetch_one(f"SELECT COALESCE(MAX({id_column}), 0) + 1 AS next_id FROM {table_name}")
-    return int(row["next_id"])
+def defect_by_date():
+    return fetch_dataframe(
+        """
+        SELECT l.produced_date, SUM(d.defect_qty) AS defect_qty
+        FROM defect_item AS d
+        JOIN lot AS l
+          ON d.lot_id = l.lot_id
+        GROUP BY l.produced_date
+        """
+    )
+def production_by_date():
+    return fetch_dataframe(
+        """
+        SELECT production_date, SUM(qty) AS production_qty
+        FROM production
+        GROUP BY production_date
+        """
+    )   
 
 # lot 테이블에 lot_no 스키마 데이터 유/무 확인 함수
 def lot_no_exists(lot_no: str) -> bool:
