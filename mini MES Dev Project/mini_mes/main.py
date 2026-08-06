@@ -2,6 +2,7 @@ import streamlit as st
 import sqlite3
 from src import queries, ui
 
+
 conn = sqlite3.connect("./sql/mini_mes.db")
 
 
