@@ -1,1 +1,1 @@
-https://smartfactoryedu-8hjzsqx3skungya8nrfjyw.streamlit.app/
+https://smartfactoryedu-jqcvap45gs5p3bp9byeaji.streamlit.app/
