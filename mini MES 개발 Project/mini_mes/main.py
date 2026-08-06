@@ -44,12 +44,17 @@ with extra2:
    st.subheader("일자별 불량 흐름")
    if not defect_date.empty:
       st.area_chart(defect_date.set_index("produced_date")["defect_qty"], height = 260)
+#-----------------------------------------------------------
+
+st.subheader("항목별 불량수")
+df1 = queries.defect_item()
+detail = df1.groupby('defect_detail', as_index = False)['defect_qty'].sum()
+st.bar_chart(data = detail, x="defect_detail", y="defect_qty",color="#FF4B4B")
 
 #---------------------------------------------------------
 
 df = queries.productions()
 st.subheader("생산완료")
 ui.show_dataframe(df)
-
 
 ui.show_database_status()
