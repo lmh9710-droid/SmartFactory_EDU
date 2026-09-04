@@ -19,7 +19,7 @@ void DatabaseManager::close_db() {
     if (db) { sqlite3_close(db); db = nullptr; }
 }
 
-/* --- 온습도 전용 DB 구현 (COM10) --- */
+/* --- 온습도 전용 DB 구현 (COM11) --- */
 DHTDatabaseManager::DHTDatabaseManager(std::string name) : DatabaseManager(name) {}
 
 bool DHTDatabaseManager::init_table() {
