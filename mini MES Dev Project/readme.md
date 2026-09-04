@@ -54,16 +54,20 @@
 ---
 # Work Porcess
 
-1. DATABASE Modeling
-1)Table Diagram
-item (아이템 정보 테이블)
-lot (LOT 정보 테이블)
-production (제품 생산정보 테이블)
-production_material (재료 생산정보 테이블)
-defect_item (불량품 정보 테이블)
-defect_category (불량 세부 분류 테이블)
-image
-2)사용된 Query
+# 1. DATABASE Modeling
+## 1)Table Diagram
+- item (아이템 정보 테이블)
+- lot (LOT 정보 테이블)
+- production (제품 생산정보 테이블)
+- production_material (재료 생산정보 테이블)
+- defect_item (불량품 정보 테이블)
+- defect_category (불량 세부 분류 테이블)
+<img width="959" height="741" alt="image" src="https://github.com/user-attachments/assets/c53ab38e-c9d8-4b61-b475-42ee93983243" />
+
+
+
+## 2)사용된 Query
+```
 CREATE TABLE item (
     item_id INTEGER PRIMARY KEY,
     item_code TEXT NOT NULL UNIQUE,
@@ -122,8 +126,10 @@ CREATE TABLE defect_category (
    defect_detail TEXT NOT NULL UNIQUE
 );
 
-2.프로젝트 구조
-1)파일구성
+```
+# 2.프로젝트 구조 
+## 1)파일구성 
+```
 mini_mes/
     main.py
     pages/
@@ -140,20 +146,32 @@ mini_mes/
         ui.py
     sql/
         mini_mes.db
-main.py 시작화면
-pages 부서별 메뉴창 폴더
-src DB제어 및 SQL함수 폴더
-sql DB(mini_mes) 폴더
-2)세부내용
-설계관리
-품목명, 품목타입등을 입력 후, ITEM Table에 삽입
-자재관리
-설계관리에서 등록된 품목을 Select Box에서 입고시킬 품목 선택 입고등록 클릭시 lot Table 삽입
-품질검사
-불량항목 입력 등록시 defect_category Table 삽입(불량 항목 Category화) 이후 SELECT BOX에서 불량 등록할 LOT_no 선택하여 등록 하면 defect_item Table 삽입
-생산실적
-생산완료 등록할 ITEM_Name 및 Material 기입후 등록시 제품 LOT번호 LOT Table 삽입 해당 LOT의 Status는 COMPLETED
-출하등록
-출하할 제품 LOT Select Box에서 선택하여 등록시 Status 변경 (COMPLETED → SHIPPED)
-BOM 추적
-BOM 정방향 또는 역방향 추적 가능
+```
+- main.py 시작화면
+- pages 부서별 메뉴창 폴더 
+- src DB제어 및 SQL함수 폴더 
+- sql DB(mini_mes) 폴더
+
+## 2)세부내용 
+### 설계관리
+- 품목명, 품목타입등을 입력 후, ITEM Table에 삽입
+
+### 자재관리
+- 설계관리에서 등록된 품목을 Select Box에서 입고시킬 품목 선택
+입고등록 클릭시 lot Table 삽입
+
+### 품질검사
+- 불량항목 입력 등록시 defect_category Table 삽입(불량 항목 Category화)
+이후 SELECT BOX에서 불량 등록할 LOT_no 선택하여 등록 하면 defect_item Table 삽입
+
+### 생산실적
+- 생산완료 등록할 ITEM_Name 및 Material 기입후 등록시 제품 LOT번호 LOT Table 삽입
+해당 LOT의 Status는 COMPLETED
+
+### 출하등록 
+- 출하할 제품 LOT Select Box에서 선택하여 등록시 
+ Status 변경 (COMPLETED → SHIPPED)
+
+### BOM 추적 
+- BOM 정방향 또는 역방향 추적 가능 
+
