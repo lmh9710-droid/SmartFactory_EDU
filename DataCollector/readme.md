@@ -3,9 +3,9 @@
 # 프로젝트명: 데이터 수집 with Arduino
 
 ## 1. 프로젝트 개요 
-  1)Arduino 보드를 사용하여 Sensor 제어 로직 작성
-  2)Arduino 발생하는 센서 값을 UART 통신으로 Read하여 DataBase(SQLite)에 저장하는 프로그램 작성 
-  3)DataBase(SQLite)에 저장된 센서값을 Dash Board(streamlit) 화면위에 통계분석 환경 구축
+- 1)Arduino 보드를 사용하여 Sensor 제어 로직 작성
+- 2)Arduino 발생하는 센서 값을 UART 통신으로 Read하여 DataBase(SQLite)에 저장하는 프로그램 작성 
+- 3)DataBase(SQLite)에 저장된 센서값을 Dash Board(streamlit) 화면위에 통계분석 환경 구축
   
 ---
 ## 2. 개발환경
