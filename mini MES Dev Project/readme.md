@@ -2,7 +2,7 @@
 # 프로젝트명: mini MES 개발 Project
 
 ## 1. 프로젝트 개요 
-- 해당 프로젝트는 라면제조 공정 MES 도입 위한 개발 프로젝트 입니다.
+- 해당 프로젝트는 라면제조 공정 MES 개발 프로젝트 입니다.
 - 기안자: 이민하
   
 ---
@@ -51,6 +51,8 @@
 - 기능: 데이터 조회 및 등록
 - 개발언어: Python(streamlit)
 
+---
+
 ## 6. DATABASE Modeling
 ### 1)Table Diagram
 - item (아이템 정보 테이블)
@@ -61,7 +63,7 @@
 - defect_category (불량 세부 분류 테이블)
 <img width="959" height="741" alt="image" src="https://github.com/user-attachments/assets/c53ab38e-c9d8-4b61-b475-42ee93983243" />
 
-
+---
 
 ### 2)사용된 Query
 ```
@@ -124,6 +126,6 @@ CREATE TABLE defect_category (
 );
 
 ```
-
+---
 ## 발표 PPT:
 https://docs.google.com/presentation/d/1DWFiv2iBwZPOoa4d0S6JV9x6Vxt1R4xrvLa518kbNLw/edit?slide=id.p#slide=id.p
