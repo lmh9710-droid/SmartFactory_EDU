@@ -22,7 +22,7 @@
 ---
 ## 3. Work Process
 ### 1)Arduino 펌웨어 로직 프로그램 작성
-- Arduino Board 2개 사용하여 1대 온습도 ccmrwjd 공정, 1대 광도측정 공정으로 사용
+- Arduino Board 2개 사용하여 1대 온습도 공정, 1대 광도측정 공정으로 사용
 - 각 센서 부품들을 보드에 연결하여 센서 제어하는 프로그램 로직 작성
 ### 2)Middle Ware(데이터 수집기) 프로그램 작성
 - 부모 개체 DataBase, SensorReader 설계 및 프로그램 작성
