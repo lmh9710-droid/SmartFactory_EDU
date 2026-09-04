@@ -38,7 +38,7 @@
 - 각 센서 부품들을 보드에 연결하여 센서 제어하는 프로그램 로직 작성
 ### 2)Middle Ware(데이터 수집기) 프로그램 작성
 - 부모 개체 DataBase, SensorReader 설계 및 프로그램 작성
-- 조도, 온습도 정보를 Read하고 DataBase(SQlite) 저장할수있는 자식 개체 및 함수 오버로딩 설계 및 로직 작성
+- 조도, 온습도 정보를 Read하고 DataBase(SQlite) 저장할수있는 자식 개체 및 함수 오버라이딩 설계 및 로직 작성
 - main 함수에 2공정을 각 thread로 나누어서 동작하게 하는 로직 작성후, 빌드  
 ### 3)Dashboard(streamlit) 스크립트 작성
 - 조도, 온습도 공정을 각각 좌측 사이드 바에 표시
