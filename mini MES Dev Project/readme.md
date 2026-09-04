@@ -63,8 +63,6 @@
 - defect_category (불량 세부 분류 테이블)
 <img width="959" height="741" alt="image" src="https://github.com/user-attachments/assets/c53ab38e-c9d8-4b61-b475-42ee93983243" />
 
----
-
 ### 2)사용된 Query
 ```
 CREATE TABLE item (
