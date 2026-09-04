@@ -48,14 +48,14 @@ void SensorReader::close_port() {
     if (hSerial != INVALID_HANDLE_VALUE) { EscapeCommFunction(hSerial, CLRDTR); CloseHandle(hSerial); hSerial = INVALID_HANDLE_VALUE; }
 }
 
-// --- 자식 온습도 리더 구현 ---
+/* --- 자식 온습도 리더 구현 --- */
 DHTReader::DHTReader(std::string port, int baud, DatabaseManager& db) : SensorReader(port, baud, db) {}
 void DHTReader::handle_received_line(std::string line) {
     std::cout << "[COM11 온습도 스레드]: " << line << std::endl;
     db_manager.insert_data(port_name, line); // 부모 클래스가 쥐고 있는 자식 DB 호출
 }
 
-// --- 자식 광도 리더 구현 ---
+/* --- 자식 광도 리더 구현 --- */
 LightReader::LightReader(std::string port, int baud, DatabaseManager& db) : SensorReader(port, baud, db) {}
 void LightReader::handle_received_line(std::string line) {
     std::cout << "[COM12 광도 스레드]: " << line << std::endl;
