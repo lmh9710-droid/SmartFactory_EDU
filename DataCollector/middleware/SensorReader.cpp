@@ -34,11 +34,15 @@ void SensorReader::start_listening() {
             if (byteBuffer == '\n') {
                 if (!line_buffer.empty() && line_buffer.back() == '\r') line_buffer.pop_back();
                 
-                // 💡 다형성 핵심: 자식이 오버라이딩한 함수를 동적으로 호출함
+                /* 자식이 오버라이딩한 함수를 동적으로 호출함 */
                 this->handle_received_line(line_buffer); 
                 
                 line_buffer.clear();
-            } else { line_buffer += byteBuffer; }
+            } 
+            
+            else { 
+                line_buffer += byteBuffer; 
+            }
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
