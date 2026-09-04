@@ -10,9 +10,15 @@
 
 ## 2. Work Process
 ### 1)Arduino 펌웨어 로직 프로그램 작성
+- Arduino Board 2개 사용하여 1대 온습도 공정, 1대 광도측정 공정으로 사용
+- 각 센서 부품들을 보드에 연결하여 센서 값을 읽는 프로그램 로직 작성
 ### 2)Middle Ware(데이터 수집기) 프로그램 작성
+- DataBase, SensorReader 개체 설계
+- 조도, 온도 정보를 담을수 있는 자식 개체들을 설계
+- main 함수 작성후 빌드하여 실행파일 실행하여 작동 확인  
 ### 3)Dashboard(streamlit) 스크립트 작성
-
+- 조도, 온도 공정을 각각 좌측 사이드 바에 표시
+- 공정별 센서 계측치 모니터링 
 
 ---
 
@@ -24,7 +30,7 @@
 - 기능: Arduino로 부터 발해된 센서값을 Read하여 DataBase(SQLite) 저장 
 - 개발언어: C++
 ### 3) DashBoard(streamlit) 
-- 기능: 통계분석 환경
+- 기능: 모니터링 환경
 - 개발언어: Python
 
 ---
