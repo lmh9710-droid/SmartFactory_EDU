@@ -3,20 +3,20 @@
 # 프로젝트명: 센서 데이터 수집을 통한 MES 기능 제작
 
 ## 1. 프로젝트 개요 
- 1) 임베디드 하드웨어를 사용하여 Sensor 제어 로직 작성
- 2) 임베디드 하드웨어에서 발생하는 센서 값을 UART 통신으로 PC환경에서 Read하여 DataBase(SQLite)에 저장하는 미들웨어 프로그램 작성 
- 3) DataBase(SQLite)에 저장된 센서값을 웹 Dash Board(streamlit)에 모니터링
+     1) 임베디드 하드웨어를 사용하여 Sensor 제어 로직 작성
+     2) 임베디드 하드웨어에서 발생하는 센서 값을 UART 통신으로 PC환경에서 Read하여 DataBase(SQLite)에 저장하는 미들웨어 프로그램 작성 
+     3) DataBase(SQLite)에 저장된 센서값을 웹 Dash Board(streamlit)에 모니터링
 ---
 ## 2. 사용 장비
-1) **Porcessor(MicroController)**: 
-- R7FA4M1AB3CFM(Renesas) 32bit ARM(Advanced RISC Machine) Cortex M4
-- ATmega328p 8bit AVR(Alf and Vegard’s RISC Processor)
-2) **Sensor**: 
-- DHS Sensor(온습도 센서)
-- CDS Sensor(조도 센서)
-3) **통신케이블**
-- USB Type C
-- USB A-to-B
+    1) **Porcessor(MicroController)**: 
+      - R7FA4M1AB3CFM(Renesas) 32bit ARM(Advanced RISC Machine) Cortex M4
+      - ATmega328p 8bit AVR(Alf and Vegard’s RISC Processor)
+    2) **Sensor**: 
+      - DHS Sensor(온습도 센서)
+      - CDS Sensor(조도 센서)
+    3) **통신케이블**
+      - USB Type C
+      - USB A-to-B
 ---
 ## 3. 개발환경
 ### 1)임베디드 하드웨어/ 설비
