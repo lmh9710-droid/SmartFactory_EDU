@@ -3,7 +3,7 @@
 # 프로젝트명: 데이터 수집 with Arduino
 
 ## 1. 프로젝트 개요 
-- Arduino 포트를 사용하여 Sensor 값을 Read 하는 펌웨러 로직 작성
+- Arduino 포트를 사용하여 Sensor 제어 로직 작성
 - Arduino 발생하는 센서 값을 UART 통신으로 Read하여 DataBase(SQLite)에 저장하는 프로그램 작성 
 - DataBase(SQLite)에 저장된 센서값을 Dash Board(streamlit) 화면위에 통계분석 환경 구축
   
@@ -12,7 +12,7 @@
 ## 2. Work Process
 ### 1)Arduino 펌웨어 로직 프로그램 작성
 - Arduino Board 2개 사용하여 1대 온습도 공정, 1대 광도측정 공정으로 사용
-- 각 센서 부품들을 보드에 연결하여 센서 값을 읽는 프로그램 로직 작성
+- 각 센서 부품들을 보드에 연결하여 센서 제어하는 프로그램 로직 작성
 ### 2)Middle Ware(데이터 수집기) 프로그램 작성
 - DataBase, SensorReader 개체 설계
 - 조도, 온습도 정보를 담을수 있는 자식 개체들을 설계
@@ -25,7 +25,7 @@
 
 ## 3. 개발환경
 ### 1) 하드웨어/ 설비 -  Arduino
-- 기능: 센서값 Read하여 UART 통신으로 PC 출력
+- 기능: 센서값 Read하여 UART 통신으로 PC에 출력
 - 개발언어: C/C++
 ### 2) Middle Ware(데이터 수집기)
 - 기능: Arduino로 부터 발행된 센서값을 Read하여 DataBase(SQLite) 저장 
