@@ -27,7 +27,7 @@
 - 기능: 센서값 Read하여 UART 통신으로 PC 출력
 - 개발언어: C/C++
 ### 2) Middle Ware(데이터 수집기)
-- 기능: Arduino로 부터 발해된 센서값을 Read하여 DataBase(SQLite) 저장 
+- 기능: Arduino로 부터 발행된 센서값을 Read하여 DataBase(SQLite) 저장 
 - 개발언어: C++
 ### 3) DashBoard(streamlit) 
 - 기능: 모니터링 환경
