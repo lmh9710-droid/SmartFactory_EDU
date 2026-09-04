@@ -34,3 +34,7 @@
 - 개발언어: Python
 
 ---
+## 4. 실습사진
+<img width="962" height="1027" alt="Screenshot_6" src="https://github.com/user-attachments/assets/6e297107-1137-4d3f-b214-6c4a4192dcbd" />
+<img width="957" height="1035" alt="Screenshot_7" src="https://github.com/user-attachments/assets/aae84e5f-cd3b-4e95-b5c5-772c39dd457d" />
+<img width="358" height="624" alt="Screenshot_8" src="https://github.com/user-attachments/assets/1f7ef04d-4645-4915-b9c4-2c2bb1954d5f" />
