@@ -175,3 +175,5 @@ mini_mes/
 ### BOM 추적 
 - BOM 정방향 또는 역방향 추적 가능 
 
+* 발표 PPT:
+https://docs.google.com/presentation/d/1DWFiv2iBwZPOoa4d0S6JV9x6Vxt1R4xrvLa518kbNLw/edit?slide=id.p#slide=id.p
