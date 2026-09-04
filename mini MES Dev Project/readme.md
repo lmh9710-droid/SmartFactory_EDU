@@ -64,16 +64,8 @@
 <img width="959" height="741" alt="image" src="https://github.com/user-attachments/assets/c53ab38e-c9d8-4b61-b475-42ee93983243" />
 
 ### 2)Table 생성 Query
-```
-CREATE TABLE item (
-    item_id INTEGER PRIMARY KEY,
-    item_code TEXT NOT NULL UNIQUE,
-    item_name TEXT NOT NULL,
-    item_type TEXT NOT NULL CHECK (item_type IN ('PRODUCT', 'MATERIAL')),
-    unit TEXT NOT NULL,
-    is_active TEXT NOT NULL DEFAULT 'Y' CHECK (is_active IN ('Y', 'N'))
-);
 
+```sql
 CREATE TABLE lot (
     lot_id INTEGER PRIMARY KEY,
     lot_no TEXT NOT NULL UNIQUE,
@@ -93,7 +85,7 @@ CREATE TABLE production (
     output_lot_id INTEGER NOT NULL UNIQUE,
     production_date TEXT NOT NULL,
     qty REAL NOT NULL CHECK (qty > 0),
-    status TEXT NOT NULL CHECK (status IN ('PLANNED', 'COMPLETED', 'CANCELED','SHIPPED')),
+    status TEXT NOT NULL CHECK (status IN ('PLANNED', 'COMPLETED', 'CANCELED', 'SHIPPED')),
     FOREIGN KEY (item_id) REFERENCES item (item_id),
     FOREIGN KEY (output_lot_id) REFERENCES lot (lot_id)
 );
@@ -108,22 +100,8 @@ CREATE TABLE production_material (
     FOREIGN KEY (material_item_id) REFERENCES item (item_id),
     FOREIGN KEY (material_lot_id) REFERENCES lot (lot_id)
 );
-
-CREATE TABLE defect_item (
-   defect_id INTEGER PRIMARY KEY,
-   lot_id INTEGER NOT NULL,
-   category_id INTEGER NOT NULL,
-   defect_qty real,
-   FOREIGN KEY (lot_id) REFERENCES lot (lot_id),
-   FOREIGN KEY (category_id) REFERENCES defect_category (category_id)
-);
-
-CREATE TABLE defect_category (
-   category_id INTEGER PRIMARY KEY,
-   defect_detail TEXT NOT NULL UNIQUE
-);
-
 ```
+
 ---
 ## 발표 PPT:
 https://docs.google.com/presentation/d/1DWFiv2iBwZPOoa4d0S6JV9x6Vxt1R4xrvLa518kbNLw/edit?slide=id.p#slide=id.p
