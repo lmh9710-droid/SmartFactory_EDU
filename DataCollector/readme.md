@@ -8,10 +8,12 @@
 - 3)DataBase(SQLite)에 저장된 센서값을 웹 Dash Board(streamlit)에 모니터링
 ---
 ## 2. 사용 장비
-- Porcessor: R7FA4M1AB3CFM(Renesas) 32bit ARM(Advanced RISC Machine) Cortex M4
-             ATmega328p 8bit AVR(Alf and Vegard’s RISC Processor)
-- Sensor: DHS Sensor(온습도 센서), CDS Sensor(조도 센서)
--  
+* **Porcessor(MicroControler)**: 
+  * R7FA4M1AB3CFM(Renesas) 32bit ARM(Advanced RISC Machine) Cortex M4
+  * ATmega328p 8bit AVR(Alf and Vegard’s RISC Processor)
+* ** Sensor**: 
+  * DHS Sensor(온습도 센서),
+  * CDS Sensor(조도 센서)
 ---
 ## 3. 개발환경
 ### 1)임베디드 하드웨어/ 설비
