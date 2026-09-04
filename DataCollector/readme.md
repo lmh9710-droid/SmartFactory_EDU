@@ -3,6 +3,7 @@
 # 프로젝트명: 데이터 수집 with Arduino
 
 ## 1. 프로젝트 개요 
+- Arduino 포트를 사용하여 Sensor 값을 Read 하는 펌웨러 로직 작성
 - Arduino 발생하는 센서 값을 UART 통신으로 Read하여 DataBase(SQLite)에 저장하는 프로그램 작성 
 - DataBase(SQLite)에 저장된 센서값을 Dash Board(streamlit) 화면위에 통계분석 환경 구축
   
@@ -35,6 +36,9 @@
 
 ---
 ## 4. 실습사진
+### 1)공정 1번(thread1) 모니터링
 <img width="962" height="1027" alt="Screenshot_6" src="https://github.com/user-attachments/assets/6e297107-1137-4d3f-b214-6c4a4192dcbd" />
+### 2)공정 2번(thread2) 모니터링 
 <img width="957" height="1035" alt="Screenshot_7" src="https://github.com/user-attachments/assets/aae84e5f-cd3b-4e95-b5c5-772c39dd457d" />
+### 3)미들웨어(C++) 콘솔창 동작확인
 <img width="358" height="624" alt="Screenshot_8" src="https://github.com/user-attachments/assets/1f7ef04d-4645-4915-b9c4-2c2bb1954d5f" />
