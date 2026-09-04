@@ -11,9 +11,11 @@
  1) **Porcessor(MicroController)**: 
       - R7FA4M1AB3CFM(Renesas) 32bit ARM(Advanced RISC Machine) Cortex M4
       - ATmega328p 8bit AVR(Alf and Vegard’s RISC Processor)
+
  2) **Sensor**: 
       - DHS Sensor(온습도 센서)
       - CDS Sensor(조도 센서)
+ 
  3) **통신케이블**
       - USB Type C
       - USB A-to-B
