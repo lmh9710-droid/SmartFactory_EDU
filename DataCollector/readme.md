@@ -8,12 +8,15 @@
  3) DataBase(SQLite)에 저장된 센서값을 웹 Dash Board(streamlit)에 모니터링
 ---
 ## 2. 사용 장비
-1) )**Porcessor(MicroController)**: 
+1) **Porcessor(MicroController)**: 
 - R7FA4M1AB3CFM(Renesas) 32bit ARM(Advanced RISC Machine) Cortex M4
 - ATmega328p 8bit AVR(Alf and Vegard’s RISC Processor)
 2) **Sensor**: 
-- DHS Sensor(온습도 센서),
+- DHS Sensor(온습도 센서)
 - CDS Sensor(조도 센서)
+3) **통신케이블**
+- USB Type C
+- USB A-to-B
 ---
 ## 3. 개발환경
 ### 1)임베디드 하드웨어/ 설비
