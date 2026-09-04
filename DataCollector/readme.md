@@ -8,22 +8,7 @@
 - DataBase(SQLite)에 저장된 센서값을 Dash Board(streamlit) 화면위에 통계분석 환경 구축
   
 ---
-
-## 2. Work Process
-### 1)Arduino 펌웨어 로직 프로그램 작성
-- Arduino Board 2개 사용하여 1대 온습도 공정, 1대 광도측정 공정으로 사용
-- 각 센서 부품들을 보드에 연결하여 센서 제어하는 프로그램 로직 작성
-### 2)Middle Ware(데이터 수집기) 프로그램 작성
-- DataBase, SensorReader 개체 설계
-- 조도, 온습도 정보를 담을수 있는 자식 개체들을 설계
-- main 함수에 2공정을 thread 나누어서 동작하게 로직 작성후, 빌드  
-### 3)Dashboard(streamlit) 스크립트 작성
-- 조도, 온습도 공정을 각각 좌측 사이드 바에 표시
-- 공정별 센서 계측치 모니터링 
-
----
-
-## 3. 개발환경
+## 2. 개발환경
 ### 1) 하드웨어/ 설비 -  Arduino
 - 기능: 센서값 Read하여 UART 통신으로 PC에 출력
 - 개발언어: C/C++
@@ -34,6 +19,19 @@
 - 기능: 모니터링 환경
 - 개발언어: Python
 
+---
+## 3. Work Process
+### 1)Arduino 펌웨어 로직 프로그램 작성
+- Arduino Board 2개 사용하여 1대 온습도 ccmrwjd 공정, 1대 광도측정 공정으로 사용
+- 각 센서 부품들을 보드에 연결하여 센서 제어하는 프로그램 로직 작성
+### 2)Middle Ware(데이터 수집기) 프로그램 작성
+- 부모 개체 DataBase, SensorReader 설계 및 프로그램 작성
+- 조도, 온습도 정보를 Read하고 DataBase(SQlite) 저장할수있는 자식 개체 및 함수 오버로딩 설계 및 로직 작성
+- main 함수에 2공정을 각 thread로 나누어서 동작하게 하는 로직 작성후, 빌드  
+### 3)Dashboard(streamlit) 스크립트 작성
+- 조도, 온습도 공정을 각각 좌측 사이드 바에 표시
+- 공정별 센서 계측치 모니터링
+  
 ---
 ## 4. Class Diagram
 <img width="940" height="516" alt="image" src="https://github.com/user-attachments/assets/90eb5d9e-38a8-4aa2-9abb-894a3ebcc52b" />
