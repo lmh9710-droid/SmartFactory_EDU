@@ -54,7 +54,6 @@
 ---
 
 ## 6. DATABASE Modeling
-### 1)Table Diagram
 - item (아이템 정보 테이블)
 - lot (LOT 정보 테이블)
 - production (제품 생산정보 테이블)
@@ -62,45 +61,6 @@
 - defect_item (불량품 정보 테이블)
 - defect_category (불량 세부 분류 테이블)
 <img width="959" height="741" alt="image" src="https://github.com/user-attachments/assets/c53ab38e-c9d8-4b61-b475-42ee93983243" />
-
-### 2)Table 생성 Query
-
-```sql
-CREATE TABLE lot (
-    lot_id INTEGER PRIMARY KEY,
-    lot_no TEXT NOT NULL UNIQUE,
-    item_id INTEGER NOT NULL,
-    lot_type TEXT NOT NULL CHECK (lot_type IN ('RECEIPT', 'PRODUCTION')),
-    qty REAL NOT NULL CHECK (qty >= 0),
-    received_date TEXT,
-    produced_date TEXT,
-    expire_date TEXT,
-    FOREIGN KEY (item_id) REFERENCES item (item_id)
-);
-
-CREATE TABLE production (
-    production_id INTEGER PRIMARY KEY,
-    production_no TEXT NOT NULL UNIQUE,
-    item_id INTEGER NOT NULL,
-    output_lot_id INTEGER NOT NULL UNIQUE,
-    production_date TEXT NOT NULL,
-    qty REAL NOT NULL CHECK (qty > 0),
-    status TEXT NOT NULL CHECK (status IN ('PLANNED', 'COMPLETED', 'CANCELED', 'SHIPPED')),
-    FOREIGN KEY (item_id) REFERENCES item (item_id),
-    FOREIGN KEY (output_lot_id) REFERENCES lot (lot_id)
-);
-
-CREATE TABLE production_material (
-    production_material_id INTEGER PRIMARY KEY,
-    production_id INTEGER NOT NULL,
-    material_item_id INTEGER NOT NULL,
-    material_lot_id INTEGER NOT NULL,
-    qty REAL NOT NULL CHECK (qty > 0),
-    FOREIGN KEY (production_id) REFERENCES production (production_id),
-    FOREIGN KEY (material_item_id) REFERENCES item (item_id),
-    FOREIGN KEY (material_lot_id) REFERENCES lot (lot_id)
-);
-```
 
 ---
 ## 발표 PPT:
