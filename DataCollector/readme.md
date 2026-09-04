@@ -1,26 +1,31 @@
 
 
-# 프로젝트명: 데이터 수집 with Arduino
+# 프로젝트명: 센서 데이터 수집을 통한 MES 기능 제작
 
 ## 1. 프로젝트 개요 
-- 1)Arduino 보드를 사용하여 Sensor 제어 로직 작성
-- 2)Arduino 발생하는 센서 값을 UART 통신으로 Read하여 DataBase(SQLite)에 저장하는 프로그램 작성 
-- 3)DataBase(SQLite)에 저장된 센서값을 Dash Board(streamlit) 화면위에 통계분석 환경 구축
-  
+- 1)임베디드 하드웨어를 사용하여 Sensor 제어 로직 작성
+- 2)임베디드 하드웨어에서 발생하는 센서 값을 UART 통신으로 PC환경에서 Read하여 DataBase(SQLite)에 저장하는 미들웨어 프로그램 작성 
+- 3)DataBase(SQLite)에 저장된 센서값을 웹 Dash Board(streamlit)에 모니터링
 ---
-## 2. 개발환경
-### 1)하드웨어/ 설비 -  Arduino
+## 2. 사용 장비
+- Porcessor: R7FA4M1AB3CFM(Renesas) 32bit ARM(Advanced RISC Machine) Cortex M4
+             ATmega328p 8bit AVR(Alf and Vegard’s RISC Processor)
+- Sensor: DHS Sensor(온습도 센서), CDS Sensor(조도 센서)
+-  
+---
+## 3. 개발환경
+### 1)임베디드 하드웨어/ 설비
 - 기능: 센서값 Read하여 UART 통신으로 PC에 출력
 - 개발언어: C/C++
 ### 2)Middle Ware(데이터 수집기)
-- 기능: Arduino로 부터 발행된 센서값을 Read하여 DataBase(SQLite) 저장 
+- 기능: 임베디드 하드웨어로 부터 발행된 센서값을 Read하여 DataBase(SQLite) 저장 
 - 개발언어: C++
 ### 3)DashBoard(streamlit) 
-- 기능: 모니터링 환경
+- 기능: DataBase에 저장된 데이터 모니터링 환경
 - 개발언어: Python
 
 ---
-## 3. Work Process
+## 4. Work Process
 ### 1)Arduino 펌웨어 로직 프로그램 작성
 - Arduino Board 2개 사용하여 1대 온습도 공정, 1대 광도측정 공정으로 사용
 - 각 센서 부품들을 보드에 연결하여 센서 제어하는 프로그램 로직 작성
@@ -33,11 +38,11 @@
 - 공정별 센서 계측치 모니터링
   
 ---
-## 4. Class Diagram
+## 5. Class Diagram
 <img width="940" height="516" alt="image" src="https://github.com/user-attachments/assets/90eb5d9e-38a8-4aa2-9abb-894a3ebcc52b" />
 
 ---
-## 5. 실습사진
+## 6. 실습사진
 
 ### 1)미들웨어(C++) 데이터 통신 동작 확인
 
