@@ -45,7 +45,7 @@
 - 공정별 센서 계측치 모니터링
   
 ---
-## 5. Class Diagram
+## 5. 데이터 수집기 Class Diagram
 <img width="1018" height="443" alt="image" src="https://github.com/user-attachments/assets/47628825-cb1c-497e-88cb-70f931441848" />
 
 
