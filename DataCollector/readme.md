@@ -64,3 +64,8 @@
 
 <img width="957" height="1035" alt="Screenshot_7" src="https://github.com/user-attachments/assets/aae84e5f-cd3b-4e95-b5c5-772c39dd457d" />
 
+### 4)임베디드 하드웨어
+
+<img width="485" height="364" alt="image" src="https://github.com/user-attachments/assets/55aa8bb2-5f22-49ae-bfea-6f084f8f3713" />
+
+
