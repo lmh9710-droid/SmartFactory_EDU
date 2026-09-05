@@ -46,7 +46,8 @@
   
 ---
 ## 5. Class Diagram
-<img width="940" height="516" alt="image" src="https://github.com/user-attachments/assets/90eb5d9e-38a8-4aa2-9abb-894a3ebcc52b" />
+<img width="1018" height="443" alt="image" src="https://github.com/user-attachments/assets/47628825-cb1c-497e-88cb-70f931441848" />
+
 
 ---
 ## 6. 실습사진
