@@ -47,9 +47,9 @@
 ### 1) Data Base 
 - 기능: Raw 데이터 저장 
 - 개발언어: SQL(SQLITE)
-### 2) 프론트 엔드 
-- 기능: 데이터 조회 및 등록
-- 개발언어: Python(streamlit)
+### 2) Web 모니터링(streamlit)
+- 기능: 데이터 등록, 조회, 업데이트
+- 개발언어: Python
 
 ---
 
