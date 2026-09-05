@@ -28,7 +28,7 @@
 - 기능: 임베디드 하드웨어로 부터 발행된 센서값을 Read하여 DataBase(SQLite) 저장 
 - 개발언어: C++
 ### 3)DashBoard(streamlit) 
-- 기능: DataBase에 저장된 데이터 모니터링
+- 기능: DataBase(SQLite)에 저장된 데이터 모니터링
 - 개발언어: Python
 
 ---
