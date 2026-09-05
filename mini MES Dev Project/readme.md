@@ -24,6 +24,7 @@
 ### 6)BOM 추적
 - BOM 정방향 추적(원자재 → 제품)
 - BOM 역방향 추적(제품 → 원자재) 
+<img width="1049" height="518" alt="image" src="https://github.com/user-attachments/assets/194f4c2a-1617-4d3b-a92a-938e0acd5eb9" />
 
 ---
 
