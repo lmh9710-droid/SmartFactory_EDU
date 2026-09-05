@@ -6,7 +6,17 @@
 
 ---
 
-## 2. 주요기능 
+## 2. 개발환경
+### 1) Data Base(SQLite) 
+- 기능: Raw 데이터 저장 
+- 개발언어: SQL(structure query language)
+### 2) Web 모니터링(streamlit)
+- 기능: 데이터 등록, 조회, 업데이트
+- 개발언어: Python
+  
+---
+
+## 3. 주요기능 
 ### 1)설계 관리
 - 설계 ITEM 등록
 - ITEM 단종여부 업데이트
@@ -25,16 +35,6 @@
 - BOM 정방향 추적(원자재 → 제품)
 - BOM 역방향 추적(제품 → 원자재) 
 <img width="1049" height="518" alt="image" src="https://github.com/user-attachments/assets/194f4c2a-1617-4d3b-a92a-938e0acd5eb9" />
-
----
-
-## 3. 개발환경
-### 1) Data Base(SQLite) 
-- 기능: Raw 데이터 저장 
-- 개발언어: SQL(structure query language)
-### 2) Web 모니터링(streamlit)
-- 기능: 데이터 등록, 조회, 업데이트
-- 개발언어: Python
 
 ---
 
