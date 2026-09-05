@@ -52,20 +52,21 @@
 ---
 ## 6. 실습사진
 
-### 1)미들웨어(C++) 데이터 통신 동작 확인
+### 1)임베디드 하드웨어
+
+<img width="485" height="364" alt="image" src="https://github.com/user-attachments/assets/55aa8bb2-5f22-49ae-bfea-6f084f8f3713" />
+
+
+### 2)미들웨어(C++) 데이터 통신 동작 확인
 
 <img width="358" height="624" alt="Screenshot_8" src="https://github.com/user-attachments/assets/1f7ef04d-4645-4915-b9c4-2c2bb1954d5f" />
 
-### 2)공정 1번(thread1) 모니터링
+### 3)공정 1번(thread1) 모니터링
 
 <img width="962" height="1027" alt="Screenshot_6" src="https://github.com/user-attachments/assets/6e297107-1137-4d3f-b214-6c4a4192dcbd" />
 
-### 3)공정 2번(thread2) 모니터링 
+### 4)공정 2번(thread2) 모니터링 
 
 <img width="957" height="1035" alt="Screenshot_7" src="https://github.com/user-attachments/assets/aae84e5f-cd3b-4e95-b5c5-772c39dd457d" />
-
-### 4)임베디드 하드웨어
-
-<img width="485" height="364" alt="image" src="https://github.com/user-attachments/assets/55aa8bb2-5f22-49ae-bfea-6f084f8f3713" />
 
 
