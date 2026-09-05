@@ -46,7 +46,7 @@
   
 ---
 ## 5. 데이터 수집기 Class Diagram
-<img width="1018" height="443" alt="image" src="https://github.com/user-attachments/assets/47628825-cb1c-497e-88cb-70f931441848" />
+<img width="1398" height="563" alt="image" src="https://github.com/user-attachments/assets/73ff1b65-36d8-4183-9a72-ec557bad8bfe" />
 
 
 ---
