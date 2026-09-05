@@ -1,8 +1,8 @@
 
-# 프로젝트명: Mini MES 개발 Project
+# 프로젝트명: Mini MES(Manufacturing Execution System) 개발 Project
 
 ## 1. 프로젝트 개요 
-- 라면제조 도메인 Mini MES 개발
+- 라면제조 도메인 Mini MES(Manufacturing Execution System) 개발
 
 ---
 
@@ -28,9 +28,9 @@
 ---
 
 ## 3. 개발환경
-### 1) Data Base 
+### 1) Data Base(SQLite) 
 - 기능: Raw 데이터 저장 
-- 개발언어: SQL(SQLITE)
+- 개발언어: SQL(structure query language)
 ### 2) Web 모니터링(streamlit)
 - 기능: 데이터 등록, 조회, 업데이트
 - 개발언어: Python
