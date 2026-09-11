@@ -71,3 +71,16 @@
 ### 4) 공정 2번 (Thread 2) 모니터링
 <img width="957" height="1035" alt="Thread 2 Monitoring" src="https://github.com/user-attachments/assets/aae84e5f-cd3b-4e95-b5c5-772c39dd457d" />
 
+# 🚀 멀티스레드 기반 센서 데이터 수집을 통한 MES 기능 확장
+
+> **임베디드 디바이스 센서 계측 ➔ C++ 멀티스레드 미들웨어 ➔ SQLite 적재 ➔ Streamlit 웹 대시보드 시각화**
+
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![ARM](https://img.shields.io/badge/ARM_Cortex--M4-0091BD?style=for-the-badge&logo=arm&logoColor=white)
+
+---
+
+## 📌 1. 프로젝트 개요
