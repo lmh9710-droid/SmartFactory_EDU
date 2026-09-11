@@ -2,55 +2,8 @@
 
 > **임베디드 센서 계측 ➔ C++ 멀티스레드 미들웨어 ➔ SQLite DB 적재 ➔ Streamlit 실시간 모니터링 대시보드**
 
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
-![ARM](https://img.shields.io/badge/ARM_Cortex--M4-0091BD?style=for-the-badge&logo=arm&logoColor=white)
 
----
-
-sequenceDiagram
-    autonumber
-    participant HW as 📟 센서 보드 (MCU)
-    participant MW as ⚙️ C++ 미들웨어 (Multi-Thread)
-    participant DB as 🗄️ SQLite DB
-    participant UI as 📊 Streamlit 대시보드
-
-    loop 센서 데이터 수집 및 전송
-        HW->>HW: DHS / CDS 센서 값 계측
-        HW->>MW: UART 시리얼 데이터 전송
-        MW->>MW: Thread별 데이터 파싱 및 검증
-        MW->>DB: INSERT INTO SensorData (공정 1 / 공정 2)
-    end
-
-    loop 실시간 모니터링
-        UI->>DB: 공정별 최신 데이터 조회 (SELECT)
-        DB-->>UI: 계측치 데이터 반환
-        UI->>UI: 실시간 트렌드 차트 및 UI 갱신
-    end
-
-
-## 📌 1. 프로젝트 개요
-
-```mermaid
-graph LR
-    subgraph HW ["🔩 Embedded Hardware"]
-        A[Renesas / AVR MCU] -->|Sensor Read| B[C/C++ Firmware]
-    end
-    
-    subgraph MW ["⚙️ C++ Middleware"]
-        C[UART Serial Port] -->|Data Stream| D[Multi-Thread Collector]
-    end
-
-    subgraph DB ["🗄️ Storage & UI"]
-        E[(SQLite DB)] -->|Query| F[Streamlit Dashboard]
-    end
-
-    B -->|UART Output| C
-    D -->|Insert SQL| E
-
-## 📌 1. 프로젝트 개요
+## 1. 프로젝트 개요
 ### 멀티스레드 기반 센서 데이터 수집을 통한 MES 기능 확장
 1. **임베디드 센서 제어:** 임베디드 하드웨어의 센서 제어 펌웨어 로직 구현
 2. **미들웨어 데이터 적재:** UART 통신으로 수신한 센서 데이터를 PC 환경에서 Read하여 데이터베이스(SQLite)에 저장
