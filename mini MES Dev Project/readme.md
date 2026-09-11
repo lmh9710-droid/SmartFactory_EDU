@@ -1,4 +1,72 @@
+<div align="center">
 
+# 🍜 Mini MES (Manufacturing Execution System) 개발 Project
+
+**라면 제조 도메인 실행 관리 시스템**
+
+![SQL](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+
+</div>
+
+---
+
+## 📌 1. 프로젝트 개요
+
+- 라면 제조 도메인을 대상으로 한 **Mini MES(Manufacturing Execution System)** 개발
+
+---
+
+## 💻 2. 개발환경
+
+### 🔹 Database (SQLite)
+- **기능**: Raw 데이터 저장
+- **개발언어**: `SQL (Structured Query Language)`
+
+### 🔹 Web 모니터링 (Streamlit)
+- **기능**: 데이터 등록, 조회, 업데이트
+- **개발언어**: `Python`
+
+---
+
+## ⚙️ 3. 주요 기능
+
+| 구분 | 세부 기능 |
+| :--- | :--- |
+| 🧩 **설계 관리** | 설계 ITEM 등록 · ITEM 단종여부 업데이트 |
+| 📦 **자재관리** | 입고 자재 등록 |
+| 🔍 **품질검사** | 공정 불량항목 등록 · 품질 검사 후 판정 결과 등록 |
+| 🏭 **생산실적** | 생산실적 조회 · 생산완료 항목 등록 |
+| 🚚 **출하관리** | 생산완료품 출하 등록 · 출하 이력 조회 |
+| 🔗 **BOM 추적** | 정방향 추적(원자재 → 제품) · 역방향 추적(제품 → 원자재) |
+
+<div align="center">
+<img width="900" alt="주요기능 화면" src="https://github.com/user-attachments/assets/194f4c2a-1617-4d3b-a92a-938e0acd5eb9" />
+</div>
+
+---
+
+## 🗄 4. Database Modeling
+
+| 테이블 | 설명 |
+| :--- | :--- |
+| `item` | 아이템 정보 테이블 |
+| `lot` | LOT 정보 테이블 |
+| `production` | 제품 생산정보 테이블 |
+| `production_material` | 재료 생산정보 테이블 |
+| `defect_item` | 불량품 정보 테이블 |
+| `defect_category` | 불량 세부 분류 테이블 |
+
+<div align="center">
+<img width="900" alt="ERD" src="https://github.com/user-attachments/assets/c53ab38e-c9d8-4b61-b475-42ee93983243" />
+</div>
+
+---
+
+## 🎤 발표 자료
+
+📎 [발표 PPT 바로가기](https://docs.google.com/presentation/d/1DWFiv2iBwZPOoa4d0S6JV9x6Vxt1R4xrvLa518kbNLw/edit?slide=id.p#slide=id.p)
 # 프로젝트명: Mini MES(Manufacturing Execution System) 개발 Project
 
 ## 1. 프로젝트 개요 
