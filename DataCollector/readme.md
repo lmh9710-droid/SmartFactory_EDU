@@ -30,7 +30,8 @@
 
 ### 💻 Development Environment
 
-```mermaid
+```
+mermaid
 graph LR
     subgraph HW ["🔩 Embedded Hardware"]
         A[Renesas MCU / AVR] -->|Sensor Read| B[C/C++ Firmware]
